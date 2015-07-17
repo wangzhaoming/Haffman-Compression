@@ -25,36 +25,35 @@ public class BitReader {
 		bit1 = 0x80;// 按位置1
 		bit0 = 0xffffff7f;// 置0
 		map = new HashMap<String, Integer>();
-		lastbits=-1;
+		lastbits = -1;
 	}
 
 	public void deCompress(String path) throws Exception {
-		String dPath = path.substring(0, path.lastIndexOf('.'))
-				+'.'+ getExtendName();// 目标路径
+		String dPath = path.substring(0, path.lastIndexOf('.')) + '.'
+				+ getExtendName();// 目标路径
 		getHashMap();
 
-		BufferedOutputStream bos=new BufferedOutputStream(new FileOutputStream(dPath));
-		byte[] bosBuf=new byte[102400];//缓冲大小*************
-		int bosIndex=0;
-		
-		
-		
-		String key="";
-		int value=0;
-		while (lastbits>0||lastbits==-1) {
-			key+=getString(1);
-			if (map.get(key)!=null) {
-				value=map.get(key);
-				bosBuf[bosIndex]=(byte) value;
+		BufferedOutputStream bos = new BufferedOutputStream(
+				new FileOutputStream(dPath));
+		byte[] bosBuf = new byte[102400];// 缓冲大小*************
+		int bosIndex = 0;
+
+		String key = "";
+		int value = 0;
+		while (lastbits > 0 || lastbits == -1) {
+			key += getString(1);
+			if (map.get(key) != null) {
+				value = map.get(key);
+				bosBuf[bosIndex] = (byte) value;
 				bosIndex++;
-				if (bosIndex==102400) {//缓冲大小***********
+				if (bosIndex == 102400) {// 缓冲大小***********
 					bos.write(bosBuf);
-					bosIndex=0;
+					bosIndex = 0;
 				}
-				key="";
+				key = "";
 			}
 		}
-		bos.write(bosBuf, 0, bosIndex+1);
+		bos.write(bosBuf, 0, bosIndex + 1);
 		bos.flush();
 		bos.close();
 		bis.close();
@@ -67,8 +66,9 @@ public class BitReader {
 
 		i = bis.read(buf);
 		byteArrayToString();
-		if (i<1024) {//如果读到文件末尾
-			lastbits=strBuf.length()-8-str8ToInt(strBuf.substring(strBuf.length()-8));
+		if (i < 1024) {// 如果读到文件末尾
+			lastbits = strBuf.length() - 8
+					- str8ToInt(strBuf.substring(strBuf.length() - 8));
 		}
 		i = 0;
 
@@ -109,16 +109,17 @@ public class BitReader {
 		if (strBuf.length() < n) {
 			i = bis.read(buf);
 			byteArrayToString();
-			if (i<1024) {
-				lastbits=strBuf.length()-8-str8ToInt(strBuf.substring(strBuf.length()-8));
+			if (i < 1024) {
+				lastbits = strBuf.length() - 8
+						- str8ToInt(strBuf.substring(strBuf.length() - 8));
 			}
 			i = 0;
 		}
 
 		String str = strBuf.substring(0, n);
 		strBuf.delete(0, n);
-		if (lastbits!=-1) {
-			lastbits-=n;
+		if (lastbits != -1) {
+			lastbits -= n;
 		}
 		return str;
 	}
