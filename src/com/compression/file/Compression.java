@@ -56,25 +56,25 @@ public class Compression extends JFrame {
 		JFileChooser fileChooser = new JFileChooser();
 		if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 			File file = fileChooser.getSelectedFile();
-			String path = file.getAbsolutePath();// »ñÈ¡Â·¾¶
-			String dPath = path.substring(0, path.lastIndexOf('.')) + ".huf";// Ä¿±êÂ·¾¶
-			char[] ch = path.substring(path.lastIndexOf('.')+1).toCharArray();// »ñÈ¡À©Õ¹Ãû
+			String path = file.getAbsolutePath();// è·å–è·¯å¾„
+			String dPath = path.substring(0, path.lastIndexOf('.')) + ".huf";// ç›®æ ‡è·¯å¾„
+			char[] ch = path.substring(path.lastIndexOf('.')+1).toCharArray();// è·å–æ‰©å±•å
 
 			SrcReader reader = new SrcReader();
-			tree = new Tree(reader.read(path));// Éú³É¹ş·òÂüÊ÷
-			HashMap<Integer, String> map = tree.getHashMap();// »ñÈ¡Âë±í
+			tree = new Tree(reader.read(path));// ç”Ÿæˆå“ˆå¤«æ›¼æ ‘
+			HashMap<Integer, String> map = tree.getHashMap();// è·å–ç è¡¨
 
-			BitWriter bw = new BitWriter(new FileOutputStream(dPath));// °´Î»Ğ´³öÊı¾İµÄÀà
+			BitWriter bw = new BitWriter(new FileOutputStream(dPath));// æŒ‰ä½å†™å‡ºæ•°æ®çš„ç±»
 
-			bw.write(Tools.toBinaryString8(ch.length));// Ğ´³öÀ©Õ¹Ãû³¤¶È
+			bw.write(Tools.toBinaryString8(ch.length));// å†™å‡ºæ‰©å±•åé•¿åº¦
 			for (char c : ch) {
-				bw.write(Tools.toBinaryString8(c));// Ğ´³öÀ©Õ¹Ãû
+				bw.write(Tools.toBinaryString8(c));// å†™å‡ºæ‰©å±•å
 			}
 
-			bw.write(Tools.toBinaryString16(Tools.getStoreSize(map)));// Ğ´³öÂë±í³¤¶È
+			bw.write(Tools.toBinaryString16(Tools.getStoreSize(map)));// å†™å‡ºç è¡¨é•¿åº¦
 
 			Iterator<Integer> iterator = map.keySet().iterator();
-			while (iterator.hasNext()) {// ±éÀúĞ´³öÂë±í
+			while (iterator.hasNext()) {// éå†å†™å‡ºç è¡¨
 				int key = iterator.next();
 				String val = map.get(key);
 				int length = val.length();
@@ -84,9 +84,9 @@ public class Compression extends JFrame {
 			}
 
 			BufferedInputStream bis = new BufferedInputStream(
-					new FileInputStream(path));// ¶ÁÈ¡ÎÄ¼ş
+					new FileInputStream(path));// è¯»å–æ–‡ä»¶
 			int b;
-			while ((b = bis.read()) != -1) {// °´×Ö½Ú¶ÁÈ¡¡¢×ªÂë¡¢Ğ´³öÔ´ÎÄ¼ş
+			while ((b = bis.read()) != -1) {// æŒ‰å­—èŠ‚è¯»å–ã€è½¬ç ã€å†™å‡ºæºæ–‡ä»¶
 				String str = map.get(b);
 				bw.write(str);
 			}

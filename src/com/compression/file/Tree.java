@@ -6,11 +6,11 @@ public class Tree {
 	private TreeNode[] node;
 	private int leafNum;
 	private int nodeNum;
-	private int p1, p2;// ´æ·Å½ÚµãÏÂ±ê
+	private int p1, p2;// å­˜æ”¾èŠ‚ç‚¹ä¸‹æ ‡
 	private HashMap<Integer, String> map;
 	private double[][] value;
 
-	public Tree(double[][] value) {// Ê¹ÓÃ´æ´¢È¨ÖµµÄÊı×é³õÊ¼»¯
+	public Tree(double[][] value) {// ä½¿ç”¨å­˜å‚¨æƒå€¼çš„æ•°ç»„åˆå§‹åŒ–
 		p1 = p2 = 0;
 		leafNum = value.length;
 		nodeNum = 2 * leafNum - 1;

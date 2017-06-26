@@ -1,10 +1,10 @@
 package com.compression.file;
 
 public class TreeNode {
-	private double value;//½ÚµãµÄÖµ
-	private int leftChild;//×óº¢×Ó
-	private int rightChild;//ÓÒº¢×Ó
-	private int parent;//¸¸½Úµã
+	private double value;//èŠ‚ç‚¹çš„å€¼
+	private int leftChild;//å·¦å­©å­
+	private int rightChild;//å³å­©å­
+	private int parent;//çˆ¶èŠ‚ç‚¹
 	
 	public TreeNode() {
 		this.value=0;

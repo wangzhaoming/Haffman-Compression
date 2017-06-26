@@ -21,21 +21,21 @@ public class BitReader {
 		bis = new BufferedInputStream(fis);
 		buf = new byte[1024];
 		strBuf = new StringBuffer();
-		i = 0;// ×÷ÎªbufµÄÏÂ±ê
-		bit1 = 0x80;// °´Î»ÖÃ1
-		bit0 = 0xffffff7f;// ÖÃ0
+		i = 0;// ä½œä¸ºbufçš„ä¸‹æ ‡
+		bit1 = 0x80;// æŒ‰ä½ç½®1
+		bit0 = 0xffffff7f;// ç½®0
 		map = new HashMap<String, Integer>();
 		lastbits = -1;
 	}
 
 	public void deCompress(String path) throws Exception {
 		String dPath = path.substring(0, path.lastIndexOf('.')) + '.'
-				+ getExtendName();// Ä¿±êÂ·¾¶
+				+ getExtendName();// ç›®æ ‡è·¯å¾„
 		getHashMap();
 
 		BufferedOutputStream bos = new BufferedOutputStream(
 				new FileOutputStream(dPath));
-		byte[] bosBuf = new byte[102400];// »º³å´óĞ¡*************
+		byte[] bosBuf = new byte[102400];// ç¼“å†²å¤§å°*************
 		int bosIndex = 0;
 
 		String key = "";
@@ -46,7 +46,7 @@ public class BitReader {
 				value = map.get(key);
 				bosBuf[bosIndex] = (byte) value;
 				bosIndex++;
-				if (bosIndex == 102400) {// »º³å´óĞ¡***********
+				if (bosIndex == 102400) {// ç¼“å†²å¤§å°***********
 					bos.write(bosBuf);
 					bosIndex = 0;
 				}
@@ -62,11 +62,11 @@ public class BitReader {
 	private void getHashMap() throws Exception {
 		int size = bis.read();
 		size = size << 8;
-		size = size | bis.read();// »ñÈ¡Âë±íµÄ³¤¶È
+		size = size | bis.read();// è·å–ç è¡¨çš„é•¿åº¦
 
 		i = bis.read(buf);
 		byteArrayToString();
-		if (i < 1024) {// Èç¹û¶Áµ½ÎÄ¼şÄ©Î²
+		if (i < 1024) {// å¦‚æœè¯»åˆ°æ–‡ä»¶æœ«å°¾
 			lastbits = strBuf.length() - 8
 					- str8ToInt(strBuf.substring(strBuf.length() - 8));
 		}

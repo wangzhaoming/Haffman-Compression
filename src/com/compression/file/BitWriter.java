@@ -15,13 +15,13 @@ public class BitWriter {
 	public BitWriter(FileOutputStream fos) {
 		bos = new BufferedOutputStream(fos);
 		buf = new byte[1024];
-		i = 0;// bufµÄÏÂ±ê
+		i = 0;// bufçš„ä¸‹æ ‡
 		lastBits = 8;
-		bit1 = 0x80;// °´Î»ÖÃ1
-		bit0 = 0xffffff7f;// ÖÃ0
+		bit1 = 0x80;// æŒ‰ä½ç½®1
+		bit0 = 0xffffff7f;// ç½®0
 	}
 
-	public void write(String str) throws IOException {// Ğ´Èë01×Ö·û´®
+	public void write(String str) throws IOException {// å†™å…¥01å­—ç¬¦ä¸²
 		char[] ch = str.toCharArray();
 		for (char c : ch) {
 			if (c == '1') {
